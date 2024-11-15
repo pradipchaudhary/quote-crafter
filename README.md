@@ -53,12 +53,11 @@ _Crafting inspiration, one quote at a time._
 ### **Installation Steps**
 
 1. Clone the repository:
+
     ```bash
     git clone https://github.com/your-username/quotecrafter.git
     cd quotecrafter
     ```
-
-````
 
 2. Install dependencies:
 
@@ -195,8 +194,3 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 For questions or feedback, reach out at:
 📧 Email: your-email@example.com
 🌐 Website: [your-website.com](https://your-website.com)
-
-```
-
-```
-````
