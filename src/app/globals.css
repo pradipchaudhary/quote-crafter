@@ -3,19 +3,37 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --background: #3b2c68;
+    --foreground: #171717;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Apply universally to all screen sizes */
+.hero__background {
+    background: url(/noise.png),
+        radial-gradient(
+            circle at right center,
+            #4b296980,
+            #563277,
+            #4a378c 50%,
+            #4066a8 70%,
+            #32517380
+        );
+    -webkit-mask-image: radial-gradient(
+        ellipse 80% 40% at center center,
+        #000 20%,
+        #00000080 50%,
+        #0000
+    );
+    mask-image: radial-gradient(
+        ellipse 80% 40% at center center,
+        #000 20%,
+        #00000080 50%,
+        #0000
+    );
 }

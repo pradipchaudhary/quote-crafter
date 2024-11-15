@@ -51,18 +51,15 @@ export default function QuoteGenerator() {
     };
 
     return (
-        <section className="w-full h-auto py-12 text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
-                AI Quote Generator
-            </h2>
-            <p className="text-gray-300 text-lg mb-8">
+        <section className="w-full h-auto py-20 text-center ">
+            <p className="text-gray-400 text-lg mb-4">
                 Choose a category or let AI surprise you!
             </p>
 
             <div className="max-w-md mx-auto">
                 {/* Category Dropdown */}
                 <select
-                    className="w-full p-3 border border-gray-300 rounded-lg mb-4 bg-black text-white"
+                    className="w-full p-3 border border-[#7c6cab] rounded-lg mb-4 bg-[#3B2C68] text-white"
                     value={category}
                     onChange={(e) =>
                         setCategory(e.target.value as Category | "")
@@ -81,7 +78,12 @@ export default function QuoteGenerator() {
                 {/* Generate Button */}
                 <button
                     onClick={fetchQuote}
-                    className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    className="w-full py-3 px-6 rounded-lg text-white"
+                    style={{
+                        background:
+                            "radial-gradient(141.42% 141.42% at 100% 0%, #fff6, #fff0), radial-gradient(140.35% 140.35% at 100% 94.74%, #bd34fe, #bd34fe00), radial-gradient(89.94% 89.94% at 18.42% 15.79%, #41d1ff, #41d1ff00)",
+                        boxShadow: "0 1px #ffffffbf inset",
+                    }}
                     disabled={loading}
                 >
                     {loading ? "Generating..." : "Generate Quote"}
