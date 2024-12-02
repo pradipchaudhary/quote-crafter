@@ -1,101 +1,109 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
-// Update the Category type to include the new categories
-type Category =
-    | "Personal growth"
-    | "Success"
-    | "Hard work"
-    | "Attitude"
-    | "Change"
-    | "Goals"
-    | "Darkness"
-    | "Hate"
-    | "Random";
+interface Quote {
+    text: string;
+    author: string;
+    background?: string;
+}
 
 export default function QuoteGenerator() {
-    const [category, setCategory] = useState<Category | "">(""); // Updated to allow empty string
-    const [quote, setQuote] = useState<string>(""); // Generated quote
-    const [loading, setLoading] = useState<boolean>(false); // Loading state
+    const [quote, setQuote] = useState<Quote | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    // Updated Categories list
-    const categories: Category[] = [
-        "Personal growth",
-        "Success",
-        "Hard work",
-        "Attitude",
-        "Change",
-        "Goals",
-        "Darkness",
-        "Hate",
-        "Random",
-    ];
-
-    // Fetch Quote Function
-    const fetchQuote = async () => {
-        setLoading(true);
+    const generateQuote = async () => {
         try {
-            const response = await fetch("/api/generate-quote", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ category }),
-            });
-
+            setLoading(true);
+            setError("");
+            const response = await fetch("/api/generate-quote");
             const data = await response.json();
-            setQuote(data.quote || "No quote found!");
-        } catch (error) {
-            console.error("Error fetching quote:", error);
-            setQuote("Failed to fetch quote.");
+
+            if (!response.ok)
+                throw new Error(data.message || "Failed to generate quote");
+
+            setQuote(data);
+        } catch (err) {
+            setError(
+                err instanceof Error ? err.message : "Failed to generate quote"
+            );
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     return (
-        <section className="w-full h-auto py-20 text-center ">
-            <p className="text-gray-400 text-lg mb-4">
-                Choose a category or let AI surprise you!
-            </p>
-
-            <div className="max-w-md mx-auto">
-                {/* Category Dropdown */}
-                <select
-                    className="w-full p-3 border border-[#7c6cab] rounded-lg mb-4 bg-[#3B2C68] text-white"
-                    value={category}
-                    onChange={(e) =>
-                        setCategory(e.target.value as Category | "")
-                    } // Ensured type safety here
-                >
-                    <option value="" className="text-gray-400">
-                        Random
-                    </option>
-                    {categories.map((cat) => (
-                        <option key={cat} value={cat} className="text-white">
-                            {cat}
-                        </option>
-                    ))}
-                </select>
-
-                {/* Generate Button */}
-                <button
-                    onClick={fetchQuote}
-                    className="w-full py-3 px-6 rounded-lg text-white"
-                    style={{
-                        background:
-                            "radial-gradient(141.42% 141.42% at 100% 0%, #fff6, #fff0), radial-gradient(140.35% 140.35% at 100% 94.74%, #bd34fe, #bd34fe00), radial-gradient(89.94% 89.94% at 18.42% 15.79%, #41d1ff, #41d1ff00)",
-                        boxShadow: "0 1px #ffffffbf inset",
-                    }}
-                    disabled={loading}
-                >
-                    {loading ? "Generating..." : "Generate Quote"}
-                </button>
-
-                {/* Quote Display */}
-                {quote && (
-                    <div className="mt-8 p-4 border border-gray-300 rounded-lg bg-white">
-                        <p className="text-gray-800 italic">{quote}</p>
+        <div className="min-h-screen bg-gray-900 py-12 px-4">
+            <div className="max-w-4xl mx-auto">
+                <div className="bg-gray-800 rounded-lg shadow-xl p-6">
+                    <div className="flex justify-between items-center mb-8">
+                        <h2 className="text-2xl font-bold text-yellow-500">
+                            Quote Generator
+                        </h2>
+                        <button
+                            onClick={generateQuote}
+                            disabled={loading}
+                            className="px-4 py-2 bg-yellow-500 text-black rounded-lg hover:bg-yellow-400 
+                                     transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {loading ? "Generating..." : "Generate Quote"}
+                        </button>
                     </div>
-                )}
+
+                    {error && (
+                        <div className="bg-red-500/10 border border-red-500 text-red-500 p-4 rounded-lg mb-6">
+                            {error}
+                        </div>
+                    )}
+
+                    {quote && (
+                        <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-700">
+                            {quote.background && (
+                                <Image
+                                    src={quote.background}
+                                    alt="Quote background"
+                                    fill
+                                    className="object-cover"
+                                />
+                            )}
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-8">
+                                <div className="text-center">
+                                    <p className="text-2xl font-serif mb-4 text-white">
+                                        &ldquo;{quote.text}&rdquo;
+                                    </p>
+                                    <p className="text-lg text-yellow-500">
+                                        - {quote.author}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {quote && (
+                        <div className="mt-6 flex justify-end gap-4">
+                            <button
+                                onClick={() => {
+                                    /* TODO: Implement download */
+                                }}
+                                className="px-4 py-2 border border-yellow-500 text-yellow-500 
+                                         rounded-lg hover:bg-yellow-500/10 transition-colors"
+                            >
+                                Download
+                            </button>
+                            <button
+                                onClick={() => {
+                                    /* TODO: Implement share */
+                                }}
+                                className="px-4 py-2 border border-yellow-500 text-yellow-500 
+                                         rounded-lg hover:bg-yellow-500/10 transition-colors"
+                            >
+                                Share
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
-        </section>
+        </div>
     );
 }

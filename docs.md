@@ -153,39 +153,6 @@ _QuoteCrafter_ is an innovative automation tool designed to generate motivationa
 
 ---
 
-#### **Repository Structure**
-
-```
-QuoteCrafter/
-│
-├── src/
-│   ├── components/
-│   ├── assets/
-│   ├── utils/
-│   ├── styles/
-│   └── App.js
-│
-├── public/
-│   ├── index.html
-│   └── images/
-│
-├── server/
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── utils/
-│   └── server.js
-│
-├── config/
-│   └── db.js
-│
-├── package.json
-├── README.md
-└── .gitignore
-```
-
----
-
 #### **Target Audience**
 
 -   Social media influencers.
