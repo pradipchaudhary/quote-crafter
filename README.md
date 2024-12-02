@@ -41,70 +41,6 @@ _Crafting inspiration, one quote at a time._
     - High-quality image exports (JPG/PNG).
     - Social media-ready dimensions for platforms like Instagram and Facebook.
 
----
-
-## **Installation and Setup**
-
-### **Prerequisites**
-
--   Node.js (v16 or later)
--   MongoDB (for storing quotes and user data)
-
-### **Installation Steps**
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/your-username/quotecrafter.git
-    cd quotecrafter
-    ```
-
-2. Install dependencies:
-
-    ```bash
-    npm install
-    ```
-
-3. Create a `.env.local` file in the root directory and add the following:
-
-    ```env
-    MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/quotecrafter
-    NEXT_PUBLIC_API_URL=http://localhost:3000/api
-    ```
-
-4. Start the development server:
-
-    ```bash
-    npm run dev
-    ```
-
-5. Open your browser and navigate to `http://localhost:3000`.
-
----
-
-## **Folder Structure**
-
-```plaintext
-quotecrafter/
-├── .env.local
-├── .gitignore
-├── package.json
-├── public/
-│   └── images/               # Static assets like backgrounds and author images
-├── src/
-│   ├── components/           # Reusable React components
-│   ├── pages/                # Next.js pages
-│   │   ├── api/              # API routes for quotes and designs
-│   │   ├── index.js          # Homepage
-│   │   ├── quote/[id].js     # Dynamic route for viewing individual quotes
-│   │   └── create-quote.js   # Page for creating new quotes
-│   ├── lib/                  # Utility functions (e.g., database connection)
-│   ├── models/               # Mongoose models for MongoDB
-│   └── styles/               # Global and component-specific styles
-└── next.config.js            # Next.js configuration
-```
-
----
 
 ## **API Endpoints**
 
@@ -150,17 +86,6 @@ Create a new quote.
 }
 ```
 
----
-
-## **Technologies Used**
-
--   **Frontend**: Next.js, React, CSS Modules
--   **Backend**: Node.js, Express
--   **Database**: MongoDB with Mongoose
--   **Styling**: Tailwind CSS
--   **APIs**: Integration with external quote APIs
-
----
 
 ## **Future Improvements**
 
